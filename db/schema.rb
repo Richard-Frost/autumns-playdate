@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404233747) do
+ActiveRecord::Schema.define(version: 20170405004035) do
+
+  create_table "children", force: :cascade do |t|
+    t.string  "name"
+    t.integer "age"
+    t.integer "parents_id"
+    t.integer "playdates_id"
+  end
 
   create_table "parents", force: :cascade do |t|
     t.string  "mom"
@@ -22,6 +29,13 @@ ActiveRecord::Schema.define(version: 20170404233747) do
     t.integer "dad_phone"
     t.integer "child_id"
     t.integer "playdate_id"
+  end
+
+  create_table "playdates", force: :cascade do |t|
+    t.string  "name"
+    t.string  "location"
+    t.integer "parents_id"
+    t.integer "children_id"
   end
 
 end
