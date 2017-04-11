@@ -11,4 +11,15 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  #post '/parents' do
+
+    #parent = Parent.new(name: params[:name])
+
+    #if parent.save
+      #redirect
+    #else
+      #redirect '/parents/new'
+    #end 
+  #end
+
 end
