@@ -1,1 +1,8 @@
-<h1>Hello</h1>
+<% @parent.children.each do |child|%>
+  <% child.parents.each do |parent| %>
+  <h1>Hello <%= @parent.name %></h1></br>
+  <%= parent.name %><br>
+  <%= child.name %>
+  <%end%>
+<%end%>
+          
