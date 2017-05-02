@@ -5,20 +5,22 @@
     margin: 0;
     padding: 0;
   }
+ 
 
   html, body {
-    height: 10%;
-    width: 100%;
+    height: 100%;
+    width: auto;
   }
   img.resize{
-    width:270px; /* you can use % */
+    width:auto; /* you can use % */
     height: auto;
   }
 
   /* --- Welcome Page Styles --- */
   body {
+    
     background-color: pink;
-    color: #000;
+    color: white;
     font-family: Sans-Serif;
     line-height: 18px;
   }
@@ -30,13 +32,15 @@
     box-shadow: 0 0 10px rgba(0,0,0,.3);
     margin: 16px auto;
     max-width: 960px;
-    padding: 2.25%; /* 18px / 800px */
+    padding: 15%; /* 18px / 800px */
     width: 40%;
+    a: white;
   }
 
   h1 {
     font-size: 36px;
     line-height: 54px;
+    color: white;
   }
 
   h2 {
@@ -110,11 +114,14 @@
   h1 {
     font-size: 24px;
     line-height: 36px;
+    color: white;
   }
 
   h2 {
     font-size: 18px;
     line-height: 24px;
   }
+
   
+}
 }

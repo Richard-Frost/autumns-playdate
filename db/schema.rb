@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412154509) do
+ActiveRecord::Schema.define(version: 20170430232343) do
 
   create_table "children", force: :cascade do |t|
     t.string  "name"
     t.integer "age"
     t.integer "playdates_id"
+    t.string  "gender"
   end
 
   create_table "parents", force: :cascade do |t|
