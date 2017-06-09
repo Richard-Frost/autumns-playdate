@@ -1,9 +1,8 @@
-
 <h1>Hello <%= @parent.name %></h1></br>
-email: <%=@parent.email%></br>
-<% @parent.children.each do |child|%>
-  <% child.parents.each do |parent| %>
-  <br>
+  email: <%=@parent.email%></br>
+    <%@parent.children.uniq.each do |child|%>
+    <% child.parents.uniq.each do |parent| %>
+    <br>
   child's name: <%= child.name%></br>
   child's age: <%=child.age%></br>
   gender: <%=child.gender%></br>
@@ -11,5 +10,5 @@ email: <%=@parent.email%></br>
 <%end%>
 <br>
 
-  <a href="/children/new"> Add a Sibling</a></br>   
-  <a href="/parents/logout"> Logout</a>
+  
+

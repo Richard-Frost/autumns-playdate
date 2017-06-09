@@ -1,0 +1,8 @@
+<h1>Playdates </h1></br>
+<% if flash.has?(:message) %>
+  <%= flash[:message] %></br>
+<% end %></br>
+
+<% Playdate.all.each do |playdate| %>
+  <%=playdate.date%><%=playdate.time%><a href="/playdates/<%=playdate.slug%>"> <%=playdate.name%> </a></br>
+  <%end%>

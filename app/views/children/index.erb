@@ -1,0 +1,4 @@
+<h1>Children</h1>
+<% @children.each do |child| %>
+  <a href="/children/<%=child.slug%>"> <%=child.name%> </a></br>
+<%end%>

@@ -1,0 +1,22 @@
+<h1>Create a New Playdate</h1>
+
+  <form method="post" action="/playdates/new">
+      Name:</br>
+      <input type="text" name="name"></br>
+  Location:</br>
+  <input type="text" name="location"></br>
+  Description:</br>
+  <input type="text" name="description"></br>
+      Date:</br>
+      <input type="date" name="date"></br>
+      Time:</br>
+      <input type="time" name="time"></br>
+      <br>
+      <p> Selct a child to add to the play date! </p>
+  <% @parent.children.uniq.each do |child| %>
+    <%=child.name%> <input type="checkbox" value="<%child.name%>" name="child"></br>
+    <input type="hidden" name="children[][child_id]" value="<%=child.id %>">
+  <%end%>
+  <input type="submit">
+</form>
+

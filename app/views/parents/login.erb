@@ -1,6 +1,13 @@
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <h1> Parent Login </h1>
 <form method="post" action="/login">
-  Email:<input type="text" name="email"></br>
-  Password:<input type="password" name="password"></br>
-<input type="submit" value="submit">
+  Email:</br>
+  <input type="text" name="email"></br>
+  Password:</br>
+  <input type="password" name="password"></br>
+  <input type="submit" value="submit">
+</br>
+  <% if flash.has?(:message) %>
+  <%= flash[:message] %></br>
+<% end %></br>
 </form>

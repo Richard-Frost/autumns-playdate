@@ -39,4 +39,6 @@ class ApplicationController < Sinatra::Base
     #end 
   #end
 
+ # @parent ||= P
+      #arent.find_by_id(session[:id])
 end

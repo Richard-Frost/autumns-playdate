@@ -1,0 +1,14 @@
+<h1> <%=@child.name%> </h1>
+<br>
+<%@child.parents.uniq.each do |parent| %>
+  Parents: <a href="/parents/<%=parent.slug%>"> <%=parent.name%> </a></br>
+    email: <%=parent.email%>
+  <%end%>
+  <h2> Upcoming Playdates </h2>
+  <br>
+  <% @participant.child.playdates.each do |playdate| %>
+    <a href="/playdates/<%=playdate.slug%>"><%= playdate.name %></a>
+  <%end%>
+
+
+ 

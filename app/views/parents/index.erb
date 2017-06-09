@@ -1,0 +1,8 @@
+<!-- update controller action to tap database for all parents -->
+<h1>Parents</h1>
+<% @parents.each do |parent| %>
+  <a href="/parents/<%=parent.slug%>"> <%=parent.name%> </a></br>
+  <%end%>
+
+  
+  

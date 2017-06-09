@@ -1,0 +1,6 @@
+<h1> <%=@parent.name%> </h1>
+<%@parent.children.uniq.each do |child| %>
+   children: <a href="/children/<%=child.slug%>"> <%=child.name%> </a></br>
+      email: <%=@parent.email%>
+<%end%>
+ 

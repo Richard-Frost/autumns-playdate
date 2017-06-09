@@ -11,13 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170430232343) do
+ActiveRecord::Schema.define(version: 20170530173614) do
 
   create_table "children", force: :cascade do |t|
     t.string  "name"
     t.integer "age"
-    t.integer "playdates_id"
+    t.integer "playdate_id"
     t.string  "gender"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string  "comment"
+    t.integer "parent_id"
+    t.integer "playdate_id"
+  end
+
+  create_table "originators", force: :cascade do |t|
+    t.integer "parent_id"
   end
 
   create_table "parents", force: :cascade do |t|
@@ -28,11 +38,22 @@ ActiveRecord::Schema.define(version: 20170430232343) do
     t.string  "password_digest"
   end
 
+  create_table "participants", force: :cascade do |t|
+    t.integer "parent_id"
+    t.integer "child_id"
+    t.integer "playdate_id"
+  end
+
   create_table "playdates", force: :cascade do |t|
-    t.string  "name"
-    t.string  "location"
-    t.integer "parents_id"
-    t.integer "children_id"
+    t.string   "name"
+    t.string   "location"
+    t.integer  "parent_id"
+    t.integer  "child_id"
+    t.string   "date"
+    t.string   "time"
+    t.string   "description"
+    t.datetime "datetime"
+    t.integer  "originator"
   end
 
   create_table "relationships", force: :cascade do |t|
