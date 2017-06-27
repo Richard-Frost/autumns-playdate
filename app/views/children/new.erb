@@ -1,13 +1,24 @@
-<h1> Add a Sibling </h1>
+<h3 class="box"> Add a Sibling </h3>
 
 <form method="post" action="/children/new">
-  child's name:<input type="text" name="child"></br>
-  child's age:<input type="integer" name="childs_age"></br>
-  gender</br>
+  
+  <p>child's name:</p>
+  <input type="text" name="child"></br>
+  <br>
+
+  <p>child's age:</p>
+  <input type="integer" name="childs_age">
+  <br>
+  <br>
+
+  <small>Gender</small>
   <% genders = ["male", "female"] %>
+  
   <% genders.each do |gender| %>
-  <%=gender%>
- <input type="checkbox" value="<%=gender.to_s%>" name="gender">
+    <small><%=gender%></small>
+    <input type="checkbox" value="<%=gender.to_s%>" name="gender">
  <%end%>
+ <br>
+
   <input type="submit">
-</form>x
+</form>

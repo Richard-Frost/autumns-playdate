@@ -1,8 +1,17 @@
-<h1>Playdates </h1></br>
-<% if flash.has?(:message) %>
-  <%= flash[:message] %></br>
-<% end %></br>
+<div class="box">
+  <h3>Playdates </h3>
+</div>
 
-<% Playdate.all.each do |playdate| %>
-  <%=playdate.date%><%=playdate.time%><a href="/playdates/<%=playdate.slug%>"> <%=playdate.name%> </a></br>
+<% if flash.has?(:message) %>
+  <p><%= flash[:message] %></p></br>
+<% end %>
+<% if @playdates == nil %>
+<p> There are no play dates scheduled </p>
+<% else %>
+<% @playdates.each do |playdate| %>
+<% time = playdate.datetime.strftime("%b %e, %l:%M %p") %>
+  <div class="playdate_index"><small><%=time%> - </small><a href="/playdates/<%=playdate.slug%>"> <%=playdate.name%></a></div>
+</br>
   <%end%>
+<%end%>
+

@@ -1,14 +1,76 @@
-<h1>Hello <%= @parent.name %></h1></br>
-  email: <%=@parent.email%></br>
-    <%@parent.children.uniq.each do |child|%>
-    <% child.parents.uniq.each do |parent| %>
-    <br>
-  child's name: <%= child.name%></br>
-  child's age: <%=child.age%></br>
-  gender: <%=child.gender%></br>
+<div class="box">
+  <h1>Hello <%= @parent.name %></h1>
+</div>
+<br>
+
+<div class="box">
+  <h3>Playdates </h3>
+</div>
+
+<div class="box-content">
+<p class="bottom_border"> Upcoming Play Dates </p>
+<br>
+
+<% if @playdates == nil %>
+<p> There are no play dates scheduled </p>
+<% else %>
+<% @playdates.each do |playdate| %>
+  <% time = playdate.datetime.strftime("%b %e, %l:%M %p") %>
+    <div class="playdate_index"><small><%=time%> - </small><a href="/playdates/<%=playdate.slug%>"><%=playdate.name%></a></div>
+</br>
+<%end%>
+<%end%>
+<br>
+<br>
+<p class="bottom_border"> My Play Dates </p>
+<br>
+
+<% if @participant != nil %>
+  <% @participant.parent.playdates.uniq.each do |playdate| %>
+  <% time = playdate.datetime.strftime("%b %e, %l:%M %p") %>
+  <small><%=time%> - </small> <a href="/playdates/<%=playdate.slug%>"><%= playdate.name %></a></br>
   <%end%>
 <%end%>
 <br>
+<br>
+</div>
+
+<div class="box">
+<h3>Check In</h3>
+</div>
+<div class="box-content">
+<% Location.all.each do |location| %>
+  <p><a href="/locations/<%=location.slug%>"> <%=location.name%></a></p>
+<%end%>
+<br>
+
+<a href="/locations/new">Create a New Check In Location</a>
+</div>
+<br>
+<br>
+<h3 class="box"> Account </h3>
+<div class="box-content">
+<div class="bottom_border">
+<p>email: <%=@parent.email%></p>
+</div>
+<%@parent.children.uniq.each do |child|%>
+    <% child.parents.uniq.each do |parent| %>
+      <div class="bottom_border">
+        <p>child's name: <%= child.name%></p>
+        <p>child's age: <%=child.age%></p>
+        <p>gender: <%=child.gender%></p>
+      </div>
+    <%end%>
+  <%end%>
+  <br>
+ </div>
+ <br>
+ <br>
+<br>
+<br>
+<br>
+
+
 
   
 

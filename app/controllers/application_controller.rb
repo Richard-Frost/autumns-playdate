@@ -13,7 +13,19 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :index
+    if logged_in?
+      redirect to :"/parents/home"
+    else
+     erb :'/index'
+    end
+  end
+
+  get "/about" do
+    erb :about, layout: :'/layout-about'
+  end
+
+  get '/account' do
+    erb :account
   end
 
   helpers do
@@ -26,19 +38,5 @@ class ApplicationController < Sinatra::Base
       Parent.find_by_id(session[:id])
     end
   end
-  
 
-  #post '/parents' do
-
-    #parent = Parent.new(name: params[:name])
-
-    #if parent.save
-      #redirect
-    #else
-      #redirect '/parents/new'
-    #end 
-  #end
-
- # @parent ||= P
-      #arent.find_by_id(session[:id])
 end

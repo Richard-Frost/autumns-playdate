@@ -4,21 +4,18 @@ class PlaydatesController < ApplicationController
 
 use Rack::Flash
 
-layout '../views/layout'
-    
   get '/playdates' do 
-    @parent = Parent.find_by(session[:id])
-    @relationship = Relationship.find_by(parent_id: @parent.id)
-    @child = Child.find_by_id(@relationship.child_id)
-    @participant = Participant.find_by_id(@child.id)
-    erb :'/playdates/index'
+    if logged_in?
+      @playdates = Playdate.all
+      erb :'/playdates/index'
+    else 
+      redirect to :"/"
+    end
   end
 
   get '/playdates/new' do
     if logged_in?
-      @parent = Parent.find_by(session[:id])
-      @relationship = Relationship.find_by(parent_id: @parent.id)
-      @child = Child.find_by_id(@relationship.child_id)
+      @parent = Parent.find_by_id(session[:id])
       erb :'/playdates/new'
     else 
       redirect to "/"
@@ -26,18 +23,14 @@ layout '../views/layout'
   end
 
   post '/playdates/new' do
-    @parent = Parent.find_by(session[:id])
-    @relationship = Relationship.find_by(parent_id: @parent.id)
-    @child = Child.find_by_id(@relationship.child_id)
-    @datetime = params[:date] + params[:time]
-    @playdate = Playdate.create(name: params[:name], description: params[:description], location: params[:location],date: params[:date],time: params[:time], originator: @parent.id)
-    @playdate.datetime = @datetime
+    datetime = params[:when].gsub('/', '-') + ':00'
+    @playdate = Playdate.create(name: params[:name], description: params[:description], location: params[:location], datetime: datetime, originator: session[:id])
     @playdate.save
     @children = params[:children]
     @children.each do |child|
-      Participant.create(parent_id: @parent.id, child_id: child[:child_id], playdate_id: @playdate.id)
+      Participant.create(parent_id: session[:id], child_id: child[:child_id], playdate_id: @playdate.id)
     end
-    #Relationship.create(parent_id: @parent.id, child_id: @child.id)
+    
     flash[:message] = "Your playdate has been created!"
     redirect to :"/playdates"
   end
@@ -45,54 +38,67 @@ layout '../views/layout'
   post '/playdates/join' do
     @playdate = Playdate.find_by_id(params[:playdate_id])
     @parent = Parent.find_by_id(session[:id]) 
-    #@relationship = Relationship.find_by(parent_id: @parent.id)
-    #@child = Child.find_by_id(@relationship.child_id)
     @children = params[:children]
     @children.each do |child|
       Participant.create(parent_id: @parent.id, child_id: child[:child_id], playdate_id: @playdate.id)
     end
-    flash[:message] = "Your playdate has been created!"
-    redirect to :"/playdates"
+    flash[:message] = "Your child was added to this play date!"
+    redirect to :"/playdates/#{@playdate.slug}"
   end
 
    post '/playdates/comment' do
+    @playdate = Playdate.find_by_id(params[:playdate_id])
     Comment.create(comment: params[:comment], parent_id: session[:id], playdate_id: params[:playdate_id])
-    redirect to :"/playdates"
+    redirect to :"/playdates/#{@playdate.slug}"
   end
 
   get '/playdates/:slug' do
-    @playdate = Playdate.find_by_slug(params[:slug])
-    @originator = Parent.find_by_id(@playdate.originator)
-    @parent = Parent.find_by_id(session[:id])
-    @participants = @playdate.children
-    @comments = Comment.find_by(playdate_id: @playdate.id)
-    erb :"/playdates/show"
+    if logged_in?
+      @playdate = Playdate.find_by_slug(params[:slug])
+      @originator = Parent.find_by_id(@playdate.originator)
+      @parent = Parent.find_by_id(session[:id])
+      @participants = @playdate.children
+      @comments = Comment.find_by(playdate_id: @playdate.id)
+      erb :"/playdates/show"
+    else 
+      redirect to :"/"
+    end
   end
 
   get '/playdates/:id/edit' do
-  @parent = Parent.find_by_id(session[:id])
-  @playdate = Playdate.find_by_id(params[:id])
-  @relationship = Relationship.find_by(parent_id: @parent.id)
-  @child = Child.find_by_id(@relationship.child_id)
-  @originator = Parent.find_by_id(@playdate.originator)
-  erb :"/playdates/edit"
+    if logged_in?
+      @parent = Parent.find_by_id(session[:id])
+      @playdate = Playdate.find_by_id(params[:id])
+      @originator = Parent.find_by_id(@playdate.originator)
+      erb :"/playdates/edit"
+    else 
+      redirect to :"/"
+    end
   end
 
   patch '/playdates/:id' do
     @playdate = Playdate.find_by_id(params[:id])
+    @playdate.originator = @playdate.originator
     @playdate.name = params[:name]
     @playdate.location = params[:location]
     @playdate.description = params[:description]
     @playdate.date = params[:date]
     @playdate.time = params[:time]
     @playdate.save
-    erb :'/playdates/index'
+    redirect to :"/playdates/#{@playdate.slug}"
+  end
+
+  delete '/playdates/comment/delete' do
+    @playdate = Playdate.find_by_id(params[:playdate_id])
+    @comment = Comment.find_by_id(params[:comment_id])
+    @comment.delete
+    redirect to :"/playdates/#{@playdate.slug}"
   end
 
   delete '/playdates/:id/delete' do
     @playdate = Playdate.find_by_id(params[:playdate_id])
     @participant = Participant.find_by(playdate_id: @playdate.id)
-
+    
     if @playdate.originator == session[:id]
       @participant.delete
       @playdate.delete

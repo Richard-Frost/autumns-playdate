@@ -6,6 +6,9 @@ class Child < ActiveRecord::Base
   has_many :participants  
   has_many :playdates, through: :participants
 
+  has_many :checkins
+  has_many :locations, through: :checkins
+
   validates :name, presence: true
   validates :age, presence: true
   validates :gender, presence: true

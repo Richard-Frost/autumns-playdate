@@ -8,4 +8,6 @@ use Rack::MethodOverride
 use PlaydatesController
 use ParentsController
 use ChildrenController
+use SessionsController
+use LocationController
 run ApplicationController

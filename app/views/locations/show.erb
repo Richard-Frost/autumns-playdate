@@ -1,0 +1,28 @@
+<div class="box">
+  <h3> <%= @location.name %> </h3>
+</div>
+
+<div class="box-content">
+  <h3 class="bottom_border">Kids Currently Checked In</h3>
+
+  <%@location.children.each do |child| %>
+    <p><%=child.name%></p>
+  <%end%>
+</br>
+</br>
+</div>
+
+<div class="box-content">
+  <h3 class="bottom-border"> Check In</h3>
+  <form method="post" action="/locations/checkin">
+  <input type="hidden" name="location_id" value="<%=@location.id %>">
+  <% @parent.children.uniq.each do |child| %>
+    <small><%=child.name%> </small>
+    <input type="checkbox" name="children[][child_id]" value="<%=child.id%>"></br>
+  <%end%>
+  <input type="submit" value="check in">
+</form>
+</div>
+
+
+ 

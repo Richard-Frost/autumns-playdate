@@ -1,22 +1,26 @@
-<h1>Create a New Playdate</h1>
+<div class="box">
+<h3>Create a New Playdate</h3>
+</div>
 
-  <form method="post" action="/playdates/new">
-      Name:</br>
-      <input type="text" name="name"></br>
-  Location:</br>
+<form method="post" action="/playdates/new">
+  <p>Name:</p>
+  <input type="text" name="name"></br>
+  <p>Location: </p>
   <input type="text" name="location"></br>
-  Description:</br>
+  <p>Description:</p>
   <input type="text" name="description"></br>
-      Date:</br>
-      <input type="date" name="date"></br>
-      Time:</br>
-      <input type="time" name="time"></br>
-      <br>
-      <p> Selct a child to add to the play date! </p>
-  <% @parent.children.uniq.each do |child| %>
-    <%=child.name%> <input type="checkbox" value="<%child.name%>" name="child"></br>
-    <input type="hidden" name="children[][child_id]" value="<%=child.id %>">
-  <%end%>
-  <input type="submit">
+  <p>When:</p>
+  <input type="text" id="datetimepicker" name="when"></br>
+  <br>
+  
+<p> Select a child to add to the play date! </p>
+
+<% @parent.children.uniq.each do |child| %>
+  <small><%=child.name%> </small> <input type="checkbox" value="<%child.name%>" name="child">
+  <input type="hidden" name="children[][child_id]" value="<%=child.id %>">
+<%end%>
+<br>
+
+<input id="submit-button-left" type="submit">
 </form>
 

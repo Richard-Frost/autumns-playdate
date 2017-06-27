@@ -1,14 +1,22 @@
-<h1> <%=@child.name%> </h1>
+<h3 class="box"> <%=@child.name%> </h3>
 <br>
+
 <%@child.parents.uniq.each do |parent| %>
-  Parents: <a href="/parents/<%=parent.slug%>"> <%=parent.name%> </a></br>
-    email: <%=parent.email%>
-  <%end%>
-  <h2> Upcoming Playdates </h2>
-  <br>
+  <p>Parents: <a href="/parents/<%=parent.slug%>"> <%=parent.name%> </a></p>
+  <p>email: <%=parent.email%></p>
+<%end%>
+<br>
+<div class="bottom_border">
+<h3> Upcoming Playdates </h3>
+</div>
+<br>
+
+<% if @participant != nil %>
   <% @participant.child.playdates.each do |playdate| %>
-    <a href="/playdates/<%=playdate.slug%>"><%= playdate.name %></a>
+  <% time = playdate.datetime.strftime("%b %e, %l:%M %p") %>
+    <small><%= time %> - </small><a href="/playdates/<%=playdate.slug%>"><%= playdate.name %></a>
   <%end%>
-
-
+<%end%>
+<br>
+<br>
  

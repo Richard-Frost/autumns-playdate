@@ -1,16 +1,18 @@
 class ParentsController < ApplicationController
-  require 'pry'
   require 'rack-flash'
 
   get '/parents' do 
-    @parents = Parent.all
-    erb :'/parents/index'
+    if logged_in?
+      @parents = Parent.all
+      erb :'/parents/index'
+    else 
+      redirect to :"/"
+    end
   end
 
   get '/parents/signup' do
     erb :'parents/signup'
   end
-
 
   post '/parents/signup' do 
     @name = "#{params[:first_name]} #{params[:last_name]}"
@@ -19,12 +21,13 @@ class ParentsController < ApplicationController
     Relationship.create(parent_id: @parent.id, child_id: @child.id)
     session[:id] = @parent.id
     redirect to :"/parents/home"
-
   end
 
   get '/parents/home' do
     if logged_in?
       @parent = Parent.find_by_id(session[:id])
+      @participant = Participant.find_by(parent_id: @parent.id)
+      @playdates = Playdate.all
       erb :'/parents/home'
     else 
       redirect to "/"
@@ -52,8 +55,12 @@ class ParentsController < ApplicationController
     end
 
     get '/parents/:slug' do
-      @parent = Parent.find_by_slug(params[:slug])
-    erb :"/parents/show"
+      if logged_in?
+        @parent = Parent.find_by_slug(params[:slug])
+        erb :"/parents/show"
+      else 
+        redirect to :"/"
+    end
   end
   
 end

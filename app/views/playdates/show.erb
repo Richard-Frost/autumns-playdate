@@ -1,62 +1,109 @@
-<h1> <%=@playdate.name%> </h1>
+<div id="form">
+
+<div class="box"><h3><%=@playdate.name%></h3></div>
+
+<small class="right">Created by: <%=@originator.name%></small>
 <br>
-Created by: <%=@originator.name%>
-<h3>Description:</h3>
-<%=@playdate.description%></br>
 <br>
-<h3>Where:</h3>
-<%=@playdate.location%></br>
-<br>
-<h3>When:</h3>
-<%=@playdate.date%><%=@playdate.time%></br>
-<br>
+
+<% if flash.has?(:message) %>
+  <%= flash[:message] %></br>
+<% end %>
+
+<div class="box-content">
+<div class="bottom_border">
+<h3>Description</h3>
+</div>
+
+<p class="margin-bottom"><%=@playdate.description%></p>
+
+<div class="bottom_border">
+<h3>Where</h3> 
+</div>
+
+<p class="margin-bottom"><%=@playdate.location%></p>
+
+<div class="bottom_border">
+<h3>When</h3>
+</div>
+
+<% time = @playdate.datetime.strftime("%b %e, %l:%M %p") %>
+<p class="margin-bottom"><%=time%></p>
+<div class="edit-form">
 
 <% if @originator.id == session[:id] %>
-<form method="get" action="/playdates/<%=@playdate.id%>/edit">
+  <form method="get" action="/playdates/<%=@playdate.id%>/edit">
   <input id="hidden" type="hidden" name="_method" value="patch">
-  <input type="submit" value="edit">
+  <input id="submit-button"type="submit" value="edit">
 </form>
 <%end%>
+</div>
+</div>
 
-<br>
-<h2> Children Attending </h2>
-  
+<div class="box-content">
+<div class="bottom_border"><h3> Children Attending </h3> </div>
+
   <%@playdate.children.uniq.each do |child| %>
     <a href="/children/<%=child.slug%>"> <%=child.name%> </a></br>
   <%end%>
+<br>
 
-  <br>
-  <br>
-  <h3>Comments:</h3></br>
+<div class="bottom_border">
+<h3> Join </h3>
+</div>
 
-  <% @playdate.comments.each do |comment| %>
-  <small><%= "#{comment.parent.name}: "%></small> <div class="comments"> <%= "#{comment.comment} "%> <br></div></br>
-  <%end%>
-  <br>
-
-  <p> submit a comment </p>
-
-  <form method="post" action="/playdates/comment">
-    <textarea type="text" name="comment"></textarea></br>
-    <input type="hidden" name="playdate_id" value="<%=@playdate.id %>">
-    <input type="submit">
-  </form></br>
-
-  <p> Selct a child to join a play date! </p>
+<p> Selct a child to join a play date! </p> 
 
   <form method="post" action="/playdates/join">
     <input type="hidden" name="playdate_id" value="<%=@playdate.id %>">
     <% @parent.children.uniq.each do |child| %>
-    <%=child.name %> <input type="checkbox" value="<%child.name%>" name="child"></br>
-    <input type="hidden" name="children[][child_id]" value="<%=child.id %>">
+      <small><%=child.name%> </small><input type="checkbox" value="<%child.name%>" name="child"></br>
+      <input type="hidden" name="children[][child_id]" value="<%=child.id %>">
     <%end%>
-    <input type="submit" value="join">
+    <input id="submit-button" type="submit" value="join">
   </form>
+  <br>
+  <br>
+</div>
+
+<div class="box">
+  <h3>Comments</h3>
+
+  <% @playdate.comments.each do |comment| %>
+  <small><%= "#{comment.parent.name}: "%></small> <div class="comments"> <%= "#{comment.comment} "%> 
+<br>
+</div>
+
+
+<% if comment.parent_id == session[:id] %>
+  <form method="post" action="/playdates/comment/delete">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="hidden" name="comment_id" value="<%=comment.id %>">
+    <input type="hidden" name="playdate_id" value="<%=@playdate.id %>">
+     <input type="submit" value="delete" id="small-btn">
+  </form>
+  <%end%>
+<%end%>
+<br>
+
+<p> submit a comment </p>
+
+<form method="post" action="/playdates/comment">
+  <textarea type="text" name="comment"></textarea></br>
+  <input type="hidden" name="playdate_id" value="<%= @playdate.id %>">
+  <input id="submit-button-left" type="submit">
+</form></br>
+</div>
+</div>
+
+<br>
+<br>
 
 <% if @originator.id == session[:id] %>
   <form action="/playdates/:id/delete" method="post">
     <input id="hidden" type="hidden" name="_method" value="delete">
     <input type="hidden" name="playdate_id" value="<%=@playdate.id %>">
-    <input type="submit" value="cancel playdate">
+    <input id="submit-button" type="submit" value="cancel playdate">
   </form>
 <% end %>
+</div>

@@ -3,7 +3,8 @@ class Parent < ActiveRecord::Base
   has_secure_password
   
   has_many :relationships
-  has_many :playdates
+  has_many :participants
+  has_many :playdates, through: :participants
   has_many :children, through: :relationships
   has_many :comments
   belongs_to :participant

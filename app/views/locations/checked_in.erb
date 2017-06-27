@@ -1,0 +1,16 @@
+<div class="box">
+  <h3> <%= @location.name %> </h3>
+</div>
+
+<div class="box-content">
+  <h3 class="bottom_border">Kids Currently Checked In</h3>
+  <%@location.children.each do |child| %>
+    <p><%=child.name%></p>
+  <%end%>
+</div>
+
+<form action="/locations/checkout" method="post">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input type="hidden"  name="location_id" value="<%=@location.id %>">
+  <input type="submit" value="check out">
+</form>
