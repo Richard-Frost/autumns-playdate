@@ -4,8 +4,8 @@ class CreateParents < ActiveRecord::Migration
     create_table :parents do |t|
       t.string :name
       t.string :email
-      t.integer :phone
-      t.integer :playdate_id
+      t.string  :password_digest
     end
   end
 end
+
