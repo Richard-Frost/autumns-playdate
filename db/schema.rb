@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627003810) do
+ActiveRecord::Schema.define(version: 20170628004708) do
 
   create_table "checkins", force: :cascade do |t|
     t.integer "child_id"
@@ -37,10 +37,9 @@ ActiveRecord::Schema.define(version: 20170627003810) do
   end
 
   create_table "parents", force: :cascade do |t|
-    t.string  "name"
-    t.string  "email"
-    t.integer "phone"
-    t.string  "password_digest"
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
   end
 
   create_table "participants", force: :cascade do |t|
