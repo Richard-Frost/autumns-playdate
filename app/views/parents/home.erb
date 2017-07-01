@@ -2,6 +2,7 @@
   <h1>Hello <%= @parent.name %></h1>
 </div>
 <br>
+<br>
 
 <div class="box">
   <h3>Playdates </h3>
@@ -18,9 +19,9 @@
   <% time = playdate.datetime.strftime("%b %e, %l:%M %p") %>
     <div class="playdate_index"><small><%=time%> - </small><a href="/playdates/<%=playdate.slug%>"><%=playdate.name%></a></div>
 </br>
-<%end%>
-<%end%>
 <br>
+<%end%>
+<%end%>
 <br>
 <p class="bottom_border"> My Play Dates </p>
 <br>
@@ -34,8 +35,6 @@
 <br>
 <br>
 </div>
-
-<br>
 <br>
 
 <div class="box">
@@ -46,16 +45,17 @@
   <p><a href="/locations/<%=location.slug%>"> <%=location.name%></a></p>
 <%end%>
 <br>
-
+<br>
+<br>
 <a href="/locations/new">Create a New Check In Location</a>
 </div>
-<br>
 <br>
 <h3 class="box"> Account </h3>
 <div class="box-content">
 <div class="bottom_border">
 <p>email: <%=@parent.email%></p>
 </div>
+<br>
 <%@parent.children.uniq.each do |child|%>
     <% child.parents.uniq.each do |parent| %>
       <div class="bottom_border">
@@ -72,8 +72,3 @@
 <br>
 <br>
 <br>
-
-
-
-  
-

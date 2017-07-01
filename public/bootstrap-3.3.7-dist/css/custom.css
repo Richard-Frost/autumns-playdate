@@ -27,7 +27,7 @@ a:hover {
     background: rgba(255,20,147,.8);
     -moz-box-shadow: 0 0 10px rgba(0,0,0,.9);
     -webkit-box-shadow: 0 0 10px rgba(0,0,0,.9);
-    box-shadow: 0 0 15px rgba(0,0,0,.9);
+    box-shadow: 0 0 15px rgba(0,0,0,.5);
     float: none; 
     padding-top: .5%;
     padding-bottom: 1%;
@@ -141,7 +141,7 @@ button {
     margin-left: 10px;
 }
 
-#center h1 {
+#center h1, h3 {
     text-align: center;
 }
 
