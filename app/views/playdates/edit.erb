@@ -6,15 +6,13 @@ Created by: <%=@originator.name%>
 <form method="post" action="/playdates/<%=@playdate.id%>">
   <input id="hidden" type="hidden" name="_method" value="patch">
   Name:</br>
-      <input type="text" name="name" value="<%=@playdate.name%>"></br>
+    <input type="text" name="name" value="<%=@playdate.name%>"></br>
   Location:</br>
-  <input type="text" name="location" value="<%=@playdate.location%>"></br>
+    <input type="text" name="location" value="<%=@playdate.location%>"></br>
   Description:</br>
-  <input type="text" name="description" value="<%=@playdate.description%>"></br>
-      Date:</br>
-      <input type="date" name="date" value="<%=@playdate.date%>"></br>
-      Time:</br>
-      <input type="time" name="time" value="<%=@playdate.time%>"></br>
+    <input type="text" name="description" value="<%=@playdate.description%>"></br>
+  When:</br>
+    <input type="text" id="datetimepicker" name="when" value="<%=@playdate.datetime%>"></br>
   <input type="submit">
 </form>
 <%end%>
