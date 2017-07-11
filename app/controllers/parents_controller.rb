@@ -9,20 +9,7 @@ class ParentsController < ApplicationController
       redirect to :"/"
     end
   end
-
-  get '/parents/signup' do
-    erb :'parents/signup'
-  end
-
-  post '/parents/signup' do 
-    @name = "#{params[:first_name]} #{params[:last_name]}"
-    @parent = Parent.create(name: @name, email: params[:email], password: params[:password])
-    @child = Child.create(name: params[:child], age: params[:childs_age], gender: params[:gender])
-    Relationship.create(parent_id: @parent.id, child_id: @child.id)
-    session[:id] = @parent.id
-    redirect to :"/parents/home"
-  end
-
+  
   get '/parents/home' do
     if logged_in?
       @parent = Parent.find_by_id(session[:id])

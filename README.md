@@ -1,56 +1,12 @@
-Autumn's Playdate
+#Autumn's Play Date
 
+##Welcome to Autumn's Play Date
 
-ActiveRecord::Schema.define(version: 20170627003810) do
+Autumn's Play Date is a place for families to meet other families, plan play dates and stay connected in numerous ways. I am excited to offer Autumn's Play Date to anyone that want's to join what I hope to be a community of parents looking for like-minded people to connect with outside outside of Facebook's world of political posts, memes etc... Feel free to email me at frost.rchrd@gmail.com anytime with any questions, comments or suggestions for Autumn's Playdate!
 
-  create_table "checkins", force: :cascade do |t|
-    t.integer "child_id"
-    t.integer "location_id"
-    t.integer "parent_id"
-  end
+##Usage
 
-  create_table "children", force: :cascade do |t|
-    t.string  "name"
-    t.integer "age"
-    t.string  "gender"
-  end
+1) visit autumnsplaydate.com
+2) sign up for an account 
 
-  create_table "comments", force: :cascade do |t|
-    t.string  "comment"
-    t.integer "parent_id"
-    t.integer "playdate_id"
-  end
-
-  create_table "locations", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-  end
-
-  create_table "parents", force: :cascade do |t|
-    t.string  "name"
-    t.string  "email"
-    t.integer "phone"
-    t.string  "password_digest"
-  end
-
-  create_table "participants", force: :cascade do |t|
-    t.integer "parent_id"
-    t.integer "child_id"
-    t.integer "playdate_id"
-  end
-
-  create_table "playdates", force: :cascade do |t|
-    t.string   "name"
-    t.string   "location"
-    t.string   "description"
-    t.datetime "datetime"
-    t.integer  "originator"
-  end
-
-  create_table "relationships", force: :cascade do |t|
-    t.integer "parent_id"
-    t.integer "child_id"
-  end
-
-end
 
