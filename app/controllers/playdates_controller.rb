@@ -25,7 +25,6 @@ use Rack::Flash
   post '/playdates/new' do
     datetime = params[:when].gsub('/', '-') + ':00'
     @playdate = Playdate.create(name: params[:name], description: params[:description], location: params[:location], datetime: datetime, originator: session[:id])
-    @playdate.save
     @children = params[:children]
     @children.each do |child|
       Participant.create(parent_id: session[:id], child_id: child[:child_id], playdate_id: @playdate.id)
